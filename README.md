@@ -2,7 +2,13 @@
 
 A bootstrap kit for turning any Claude Code session into a **persistent, compounding knowledge base** for product discovery, consultancy engagements, technical assessments, and multi-stakeholder research work.
 
-This repo contains a single file — [`DISCOVERY-WIKI-AGENT.md`](./DISCOVERY-WIKI-AGENT.md) — that you drop into an empty project folder to scaffold a structured discovery wiki, then feed it raw material (session notes, transcripts, documents) to compile into accumulating knowledge.
+This repo contains three variants of the same pattern — drop any one of them into an empty project folder to scaffold a structured discovery wiki, then feed it raw material (session notes, transcripts, documents) to compile into accumulating knowledge.
+
+| File | Size | Stance | When to use |
+|------|------|--------|-------------|
+| [`AGENT-PRODUCT-DISCOVERY.md`](./AGENT-PRODUCT-DISCOVERY.md) | ~63k chars | **Prescriptive** | Full opinionated version: complete templates, inline examples, failure-mode guidance, detailed per-page structure. Use when you want maximum out-of-the-box scaffolding and cross-engagement consistency. |
+| [`AGENT-PRODUCT-DISCOVERY-LITE.md`](./AGENT-PRODUCT-DISCOVERY-LITE.md) | <20k chars | **Lean** | Compact starting point. All commands, layout, and core behaviours preserved; engagement-specific detail trimmed. Use when you want a clean base to layer your own bias on top of — domain conventions, persona shape, watch-list themes, risk frameworks. |
+| [`AGENT-PRODUCT-DISCOVERY-GIST.md`](./AGENT-PRODUCT-DISCOVERY-GIST.md) | 1980 words | **Principles-only** | Philosophical version. Explains the *why* and the invariants (compiled artefact, two layers, problem-first, cite everything, clusters, promotion through tiers, scope as change-control) and lets the agent derive the *how*. Use with a capable agent when you want the structure to mould itself to the engagement. |
 
 ---
 
@@ -39,7 +45,7 @@ Plus a `workspace/` for generated images, compiled briefs, and snapshots.
 ## Quick start
 
 1. Create an empty folder for your engagement.
-2. Copy `DISCOVERY-WIKI-AGENT.md` into it.
+2. Copy **one** of the three bootstrap files into it — Full, Lite, or Gist.
 3. Open the folder in Claude Code.
 4. Run `/bootstrap`.
 
@@ -50,9 +56,32 @@ Claude will ask for:
 - Known use cases and core topics
 - Known session dates (if any)
 
-Then it will scaffold the full wiki structure, seed the knowledge ontology, create templates, and write a project-specific `CLAUDE.md` as the ongoing operating config.
+Then it will scaffold a wiki structure, seed the knowledge ontology, create templates, and write a project-specific `CLAUDE.md` as the ongoing operating config.
 
-**After bootstrap, `DISCOVERY-WIKI-AGENT.md` has done its job.** The engagement is now driven by `CLAUDE.md` and the wiki itself. You can delete the bootstrap file, archive it, or leave it as a reference.
+**After bootstrap, the bootstrap file has done its job.** The engagement is now driven by `CLAUDE.md` and the wiki itself. You can delete the bootstrap file, archive it, or leave it as a reference.
+
+### Choosing Full, Lite, or Gist
+
+The three variants are the same pattern at three levels of prescriptiveness. Pick the one that matches how much room you want to give the agent.
+
+- **Full** (`AGENT-PRODUCT-DISCOVERY.md`) — inline page templates (YAML frontmatter + section bodies), worked examples, explicit failure-mode table, long general-rules block. Best when you want the agent to produce richly-shaped pages from day one without extra prompting, and when you care about cross-engagement consistency (same page names, same frontmatter fields, same lint rules every time).
+- **Lite** (`AGENT-PRODUCT-DISCOVERY-LITE.md`) — every command, the wiki layout, the problem-space framing, the cluster / ingest / lint / query / brief / snapshot behaviour, plus a compact table-shape summary per page type — but with prose and verbose template bodies trimmed. Best when you want a clean base to extend with your own conventions (domain-specific watch-list themes, a different risk framework, extra deliverable pages, a persona template tuned to your research style). Includes an "Extending this Lite file" section listing the common customisation points.
+- **Gist** (`AGENT-PRODUCT-DISCOVERY-GIST.md`) — principles and invariants only, no folder tree, no templates, no command enumeration. Best when you trust the agent to derive a sensible concrete structure from the *why*, and when you want the wiki to mould to the specifics of the engagement rather than the other way around.
+
+### Why Gist exists, and why it might be the better choice
+
+The Full version encodes many small decisions — exact folder numbering (`01_use-cases/`, `03_shared/`), exact filenames (`opportunity-tree.md`, `evidence-log.md`), specific frontmatter fields, a precise lint check list. Those decisions were right for a particular run of engagements, but some of them are arbitrary: an equally good wiki could have a different folder scheme, different file names, or a different lint pass and still satisfy every invariant that actually matters (evidence is cited, claims carry confidence, contradictions are superseded, problems come before solutions, scope expansion is gated by a human).
+
+A prescriptive file asks the agent to *execute* a pre-baked design. A principles-only file asks the agent to *design from the principles*. As agents get more capable, the second mode often produces a better-fitting wiki than the first, because:
+
+- It can shape the structure to the actual engagement (a legal-ops discovery doesn't need the same deliverable pages as a platform-architecture assessment).
+- It won't contort itself to fit a template that doesn't match what the source material wants to become.
+- It has fewer surface-level rules to carry in context, so it can spend its attention on the real work: extracting, synthesising, challenging claims.
+- The pattern is also more likely to improve over time — each run is an opportunity for the agent to re-derive a better shape, rather than reproducing last run's shape by rote.
+
+Prescriptive versions are still the right call when you are coordinating multiple engagements that must look alike, when a less-capable agent needs more guardrails, or when regulatory / audit requirements pin the exact shape of deliverables. Outside those cases, Gist is often enough — and sometimes better.
+
+All three variants share the same DNA and produce compatible output: problem-first framing, cited evidence, consolidation tiers, cluster-based ingestion, a knowledge layer alongside the discovery layer. The difference is how much of the *shape* is decided in advance vs. derived in context.
 
 ---
 
@@ -201,13 +230,15 @@ A well-run wiki accumulates these properties over the course of an engagement:
 
 ---
 
+> Note: the exact folder/file names below are what Full and Lite scaffold. Gist lets the agent pick — expect the same conceptual layers (raw capture, discovery tracking, domain knowledge, workspace) but possibly different names.
+
 ## File layout after bootstrap
 
 ```
 <engagement-root>/
 ├── CLAUDE.md                      # ongoing operating config (created by /bootstrap)
 ├── README.md                      # engagement summary (created by /bootstrap)
-├── DISCOVERY-WIKI-AGENT.md        # this bootstrap file (can be removed after bootstrap)
+├── AGENT-PRODUCT-DISCOVERY*.md    # the bootstrap file you chose (removable post-bootstrap)
 │
 ├── wiki/
 │   ├── index.md                   # master navigation — always read first
@@ -249,9 +280,10 @@ The structure draws from established product-discovery practice — no single fr
 
 ## Lifecycle and evolution
 
-- `DISCOVERY-WIKI-AGENT.md` is a **bootstrap-only** tool. Once `/bootstrap` has run, the active `CLAUDE.md` inside the engagement is the operating config.
-- Improvements to the pattern should be made **here first**, in this file, and then reflected in future engagements. Don't edit the pattern file from inside a running engagement.
+- All three bootstrap files (Full, Lite, Gist) are **bootstrap-only** tools. Once `/bootstrap` has run, the active `CLAUDE.md` inside the engagement is the operating config.
+- Improvements to the pattern should be made **here first**, in the bootstrap file you use, and then reflected in future engagements. Don't edit the pattern file from inside a running engagement.
 - Individual engagements can override or extend any behaviour in their own `CLAUDE.md` without touching the bootstrap.
+- If you frequently find yourself re-adding the same extension on top of Lite or Gist, promote it into your own fork so the next engagement benefits. If a Gist run consistently produces a better shape than Full, consider retiring the Full version or regenerating it from the Gist output.
 
 ---
 
@@ -264,7 +296,7 @@ If you run an engagement and discover:
 - A command phase that needed a manual workaround
 - A new cluster type, entity type, or visibility level worth promoting
 
-…update `DISCOVERY-WIKI-AGENT.md` in this repo so the next engagement benefits. Keep changes in the spirit of the existing file: terse, opinionated, and load-bearing.
+…update the appropriate variant in this repo so the next engagement benefits. Prescriptive learnings (new fields, new lint checks, new cluster types) belong in Full and Lite. Conceptual learnings (a new invariant, a better way to frame a layer) belong in Gist — and often propagate down into Full and Lite afterwards. Keep changes in the spirit of each file: terse and load-bearing in all three, prescriptive in Full, compact in Lite, principles-only in Gist.
 
 ---
 

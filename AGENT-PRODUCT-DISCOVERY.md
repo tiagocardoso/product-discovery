@@ -1,4 +1,4 @@
-# Discovery Wiki Agent
+# Agent Product Discovery
 
 ## What this is
 
