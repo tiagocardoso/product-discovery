@@ -1,0 +1,73 @@
+# ===== OS =====
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ===== Editors / IDEs =====
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# ===== Environment / secrets =====
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+credentials.json
+
+# ===== Logs =====
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===== Node / JS (in case tooling is added) =====
+node_modules/
+dist/
+build/
+.cache/
+coverage/
+
+# ===== Python (for tools/ scripts) =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ===== Claude Code =====
+.claude/
+CLAUDE.local.md
+
+# ===== Discovery Wiki Agent =====
+# Engagement-specific content lives in forks/clones of this repo; this
+# template repo should only hold the bootstrap kit. Ignore anything the
+# agent generates so a local /bootstrap run doesn't get committed here.
+wiki/
+raw/
+workspace/
+
+# ===== Misc =====
+tmp/
+temp/
+*.bak
+*.orig
