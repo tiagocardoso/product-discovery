@@ -1,289 +1,91 @@
-# Vibe Product Discovery
+# Vibe — Agent Bootstrap Kits
 
-A bootstrap kit for turning any Claude Code session into a **persistent, compounding knowledge base** for product discovery, consultancy engagements, technical assessments, and multi-stakeholder research work.
+Bootstrap kits for turning any Claude Code session into a **persistent, compounding knowledge base**. Two patterns, sharing the same DNA, tuned to different kinds of work.
 
-This repo contains three variants of the same pattern — drop any one of them into an empty project folder to scaffold a structured discovery wiki, then feed it raw material (session notes, transcripts, documents) to compile into accumulating knowledge.
-
-| File | Size | Stance | When to use |
-|------|------|--------|-------------|
-| [`AGENT-PRODUCT-DISCOVERY.md`](./AGENT-PRODUCT-DISCOVERY.md) | ~63k chars | **Prescriptive** | Full opinionated version: complete templates, inline examples, failure-mode guidance, detailed per-page structure. Use when you want maximum out-of-the-box scaffolding and cross-engagement consistency. |
-| [`AGENT-PRODUCT-DISCOVERY-LITE.md`](./AGENT-PRODUCT-DISCOVERY-LITE.md) | <20k chars | **Lean** | Compact starting point. All commands, layout, and core behaviours preserved; engagement-specific detail trimmed. Use when you want a clean base to layer your own bias on top of — domain conventions, persona shape, watch-list themes, risk frameworks. |
-| [`AGENT-PRODUCT-DISCOVERY-GIST.md`](./AGENT-PRODUCT-DISCOVERY-GIST.md) | 1980 words | **Principles-only** | Philosophical version. Explains the *why* and the invariants (compiled artefact, two layers, problem-first, cite everything, clusters, promotion through tiers, scope as change-control) and lets the agent derive the *how*. Use with a capable agent when you want the structure to mould itself to the engagement. |
+| Pattern | For | Bootstrap files | Deep-dive README |
+|---------|-----|-----------------|------------------|
+| **Product Discovery** | Consultancy sprints, discovery workshops, technical assessments, multi-stakeholder research. Problem-space exploration driven by primary research (sessions, interviews, workshops). | `AGENT-PRODUCT-DISCOVERY.md` · `AGENT-PRODUCT-DISCOVERY-LITE.md` · `AGENT-PRODUCT-DISCOVERY-GIST.md` | [README-DISCOVERY.md](./README-DISCOVERY.md) |
+| **Product Strategy** | Vision, strategy, and product marketing. Thesis-driven argument built from secondary research (analyst reports, market data, competitor materials) plus the user's own convictions, with an active agent-driven research loop. | `AGENT-PRODUCT-STRATEGY.md` · `AGENT-PRODUCT-STRATEGY-LITE.md` · `AGENT-PRODUCT-STRATEGY-GIST.md` | [README-STRATEGY.md](./README-STRATEGY.md) |
 
 ---
 
-## Why this exists
+## Shared DNA
 
-Most discovery work loses information. Notes sit in scattered docs, insights get re-discovered session after session, decisions drift from the evidence that supported them, and "what do we actually know?" becomes an unanswerable question by week three.
+Both patterns treat the wiki as a **compiled artifact**, not a retrieval index. Every new source is digested, integrated, and cross-linked. Pages update as evidence strengthens or challenges them. Contradictions are made explicit. The wiki gets denser and sharper with every ingested source.
 
-This agent pattern solves that by treating the wiki as a **compiled artifact**, not a retrieval index:
+The commitments both patterns share:
 
-- Evidence is captured verbatim and cited.
-- Patterns across evidence are promoted into named insights.
-- Named entities, systems, and concepts accumulate into a reusable domain map.
-- Contradictions are flagged and superseded rather than overwritten.
-- Every claim carries a confidence level and a source.
-
-The result is a wiki that **gets smarter with every session** and can be read by someone joining the engagement cold.
+- **Evidence is cited.** Every claim traces to a source. No free-floating assertions.
+- **Clusters are the unit of ingestion.** Raw material arrives in bounded sets with a manifest; the agent never opens raw files until the operator confirms a cluster.
+- **Knowledge promotes through tiers.** Raw → Episodic → Semantic → Procedural. A fact seen once is episodic; confirmed across independent sources, it earns a place in the semantic layer with rising confidence.
+- **Contradictions are flagged and superseded.** Old claims are never overwritten — they're marked superseded with a date and a pointer to the replacement.
+- **Scope expansion is a change-control event.** New use cases, strategies, products, or competitors never get scaffolded silently — the agent surfaces candidates and waits for human confirmation.
+- **Confidence and visibility are explicit on every consequential page.** Both answer different questions: *how sure are we?* and *who can see this?*
+- **A page must stand alone as text.** Images enhance; they never replace.
+- **`/lint` is the immune system.** Regular linting catches orphans, unsourced claims, stale pages, and decay before they compound.
 
 ---
 
-## What you get
+## What's different
 
-When you bootstrap a new project, you get a scaffold organised into three complementary layers:
+| Axis | Discovery | Strategy |
+|------|-----------|----------|
+| **Unit of work** | Use case = *problem space* to explore | Strategy = *argued thesis* about where to play and how to win |
+| **Primary evidence** | Verbatim session quotes, workshop artefacts, interview notes | Cited analyst figures, market data, competitor materials, customer voice |
+| **Central spine per scope** | Opportunity-solution tree (Torres) | Strategy spine — Rumelt's kernel (default), Playing to Win, or Wardley |
+| **Risk framework** | Cagan's four (value · usability · feasibility · viability) | Strategic (market · positioning · capability · execution · viability) |
+| **Research model** | Passive — evidence captured as it arrives | **Active** — agent proposes research; user approves; four-level gated deep-research loop (L1 always, L2/L3/L4 on approval) |
+| **User's own priors** | Not a distinct concept | Brain dumps are first-class input *as priors*, not evidence — they seed theses but cannot alone confirm |
+| **Product marketing / narrative** | Not covered | First-class: core narrative, positioning, messaging pillars, category, value propositions, thought leadership |
+| **State mechanism** | `/snapshot` — point-in-time markdown files in the wiki | **Git** — `/commit` and `/auto-commit` replace snapshots; briefs are SHA-pinned |
+| **Scope types** | Use cases + core topics | Strategies + products + competitors + market + foundation + narrative + GTM |
+| **Visibility tiers** | `internal` · `team` · `client-ready` | `internal` · `team` · `leadership-ready` · `board-ready` · `confidential` |
 
-| Layer | Purpose | Lives in |
-|-------|---------|----------|
-| **Discovery tracking** | What we're finding: use cases, sessions, decisions, risks, readiness checklists | `wiki/01_use-cases/`, `wiki/02_core-topics/`, `wiki/03_shared/` |
-| **Domain knowledge** | How the domain works: entities, concepts, typed relationships, ontology | `wiki/06_knowledge/` |
-| **Raw capture** | Immutable source material and session notes | `raw/` |
+Both patterns also ship with `/bootstrap`, `/ingest`, `/query`, `/lint`, `/status`, `/brief`, and `/generate-image`. Strategy adds `/research` (plus `extend` / `redo` / free-form), `/commit`, and `/auto-commit`.
 
-Plus a `workspace/` for generated images, compiled briefs, and snapshots.
+---
+
+## Three variants per pattern
+
+Each pattern ships in three levels of prescriptiveness. Pick the one that matches how much room you want to give the agent.
+
+| Variant | Stance | When to use |
+|---------|--------|-------------|
+| **Full** (~60–90k chars) | **Prescriptive** — complete templates, inline examples, failure-mode tables, explicit per-page structure, detailed command steps, full general-rules block | Maximum out-of-the-box scaffolding, cross-engagement consistency, or when coordinating multiple engagements that must look alike |
+| **Lite** (~1,980 words — same target both patterns) | **Lean** — every command, layout, core behaviour preserved; verbose templates trimmed; compact table-shape summary per page type | Clean base to layer your own bias on top — domain conventions, custom deliverables, adapted frameworks, engagement-specific extensions |
+| **Gist** (~1,980 words discovery / ~3,700 words strategy, prose-only) | **Principles-only** — explains the *why* and the invariants; lets the agent derive the *how*. No folder tree, no templates, no command enumeration | When you trust the agent to make concrete choices and want the wiki to mould to the engagement rather than the other way around |
+
+### Why Gist often wins
+
+Prescriptive files encode many small decisions — folder numbering, exact filenames, specific frontmatter fields, a precise lint list. Some of those decisions are arbitrary: an equally good wiki could have a different folder scheme or different file names and still satisfy every invariant that matters. As agents get more capable, principles-only files often produce a better-fitting wiki than prescriptive ones, because the agent can shape the structure to the actual work rather than contort itself to fit a template.
+
+Prescriptive versions are still the right call for regulated/audit-pinned deliverables, for less-capable agents needing more guardrails, or when multiple engagements must look identical. Outside those cases, Gist is often enough — and sometimes better.
 
 ---
 
 ## Quick start
 
 1. Create an empty folder for your engagement.
-2. Copy **one** of the three bootstrap files into it — Full, Lite, or Gist.
-3. Open the folder in Claude Code.
-4. Run `/bootstrap`.
+2. Pick a pattern (**Discovery** or **Strategy**) and a variant (**Full**, **Lite**, or **Gist**).
+3. Copy that one bootstrap file into your folder.
+4. Open the folder in Claude Code.
+5. Run `/bootstrap`.
 
-Claude will ask for:
-- Project / engagement name
-- Client or org name
-- Domain (one sentence)
-- Known use cases and core topics
-- Known session dates (if any)
+The agent asks a handful of context questions, scaffolds the wiki, writes a `CLAUDE.md` that takes over as ongoing operating config, and reports what it created.
 
-Then it will scaffold a wiki structure, seed the knowledge ontology, create templates, and write a project-specific `CLAUDE.md` as the ongoing operating config.
+After bootstrap, the bootstrap file has done its job. You can delete it, archive it, or leave it as reference.
 
-**After bootstrap, the bootstrap file has done its job.** The engagement is now driven by `CLAUDE.md` and the wiki itself. You can delete the bootstrap file, archive it, or leave it as a reference.
-
-### Choosing Full, Lite, or Gist
-
-The three variants are the same pattern at three levels of prescriptiveness. Pick the one that matches how much room you want to give the agent.
-
-- **Full** (`AGENT-PRODUCT-DISCOVERY.md`) — inline page templates (YAML frontmatter + section bodies), worked examples, explicit failure-mode table, long general-rules block. Best when you want the agent to produce richly-shaped pages from day one without extra prompting, and when you care about cross-engagement consistency (same page names, same frontmatter fields, same lint rules every time).
-- **Lite** (`AGENT-PRODUCT-DISCOVERY-LITE.md`) — every command, the wiki layout, the problem-space framing, the cluster / ingest / lint / query / brief / snapshot behaviour, plus a compact table-shape summary per page type — but with prose and verbose template bodies trimmed. Best when you want a clean base to extend with your own conventions (domain-specific watch-list themes, a different risk framework, extra deliverable pages, a persona template tuned to your research style). Includes an "Extending this Lite file" section listing the common customisation points.
-- **Gist** (`AGENT-PRODUCT-DISCOVERY-GIST.md`) — principles and invariants only, no folder tree, no templates, no command enumeration. Best when you trust the agent to derive a sensible concrete structure from the *why*, and when you want the wiki to mould to the specifics of the engagement rather than the other way around.
-
-### Why Gist exists, and why it might be the better choice
-
-The Full version encodes many small decisions — exact folder numbering (`01_use-cases/`, `03_shared/`), exact filenames (`opportunity-tree.md`, `evidence-log.md`), specific frontmatter fields, a precise lint check list. Those decisions were right for a particular run of engagements, but some of them are arbitrary: an equally good wiki could have a different folder scheme, different file names, or a different lint pass and still satisfy every invariant that actually matters (evidence is cited, claims carry confidence, contradictions are superseded, problems come before solutions, scope expansion is gated by a human).
-
-A prescriptive file asks the agent to *execute* a pre-baked design. A principles-only file asks the agent to *design from the principles*. As agents get more capable, the second mode often produces a better-fitting wiki than the first, because:
-
-- It can shape the structure to the actual engagement (a legal-ops discovery doesn't need the same deliverable pages as a platform-architecture assessment).
-- It won't contort itself to fit a template that doesn't match what the source material wants to become.
-- It has fewer surface-level rules to carry in context, so it can spend its attention on the real work: extracting, synthesising, challenging claims.
-- The pattern is also more likely to improve over time — each run is an opportunity for the agent to re-derive a better shape, rather than reproducing last run's shape by rote.
-
-Prescriptive versions are still the right call when you are coordinating multiple engagements that must look alike, when a less-capable agent needs more guardrails, or when regulatory / audit requirements pin the exact shape of deliverables. Outside those cases, Gist is often enough — and sometimes better.
-
-All three variants share the same DNA and produce compatible output: problem-first framing, cited evidence, consolidation tiers, cluster-based ingestion, a knowledge layer alongside the discovery layer. The difference is how much of the *shape* is decided in advance vs. derived in context.
-
----
-
-## Core concepts
-
-### Problem-first framing
-
-Use cases and core topics are **problem spaces** — areas where the team is trying to understand a problem deeply enough to choose what to build. Solutions are candidates under investigation, not starting assumptions.
-
-The flow per scope:
-
-```
-Problem + Target outcome
-  → Opportunities (unmet user needs)
-  → Solutions (candidate bets)
-  → Experiments (tests of the riskiest assumption)
-  → Evidence → Insights → Validated/invalidated assumptions
-  → Decisions → Deliverables
-```
-
-Every assumption and every experiment is classified by one of four **product-risk types** (Marty Cagan / SVPG):
-
-- **Value** — will users choose this over alternatives?
-- **Usability** — can they figure out how to use it?
-- **Feasibility** — can we build it with what we have?
-- **Viability** — does it work for the business (legal, regulatory, ethical)?
-
-Coverage gaps across the four types are a leading indicator of downstream surprise.
-
-### Clusters and the inbox
-
-Raw material arrives through an **inbox** organised into **clusters** — bounded sets of files that belong together and are processed in one `/ingest` operation.
-
-Cluster types: `session-notes`, `transcript`, `document-pack`, `data-export`, `mixed`, `background`.
-
-Each cluster has a `_manifest.md` that describes its contents, scope, priority, and dependencies. The agent reads manifests to build a menu; it never opens raw files until you've confirmed which cluster to process. This keeps the context manageable no matter how much material is staged.
-
-### Consolidation tiers
-
-Knowledge is promoted through increasingly stable tiers:
-
-| Tier | Location | Lifecycle |
-|------|----------|-----------|
-| Raw | `raw/` | Immutable, locked after capture |
-| Episodic | `04_sources/`, session pages | Permanent reference once written |
-| Semantic | `06_knowledge/entities/`, `06_knowledge/concepts/` | Updated as evidence accumulates |
-| Procedural | `06_knowledge/ontology.md`, `03_shared/` | Slowest to change, highest confidence |
-
-A fact seen once stays episodic. A fact confirmed across 3+ independent sources gets promoted to a semantic entity or concept page with `confidence: high`.
-
-### Evidence → Insights → Knowledge
-
-- **Evidence** — verbatim quotes and source-cited observations in `findings/evidence-log.md`.
-- **Insights** — named patterns synthesised from 2+ evidence rows (`findings/insights.md`).
-- **Knowledge** — high-confidence insights that crystallise into reusable domain concepts (`06_knowledge/concepts/`).
-
-Each tier cites the one below it. Nothing is invented; contradictions are made explicit with `[SUPERSEDED YYYY-MM-DD by S-XXX]` markers.
-
-### Visibility and confidence
-
-Every outcome, persona, and shared page carries:
-
-- **Visibility**: `internal` / `team` / `client-ready` — used by `/brief` to compile shareable outputs.
-- **Evidence confidence**: `low` / `medium` / `high` — the lowest confidence across claims on the page.
-
-This lets you generate a client-ready deliverable from the wiki at any point without hand-curating what's safe to share.
-
----
-
-## Command reference
-
-Run these inside Claude Code once the wiki is bootstrapped.
-
-| Command | When to use |
-|---------|-------------|
-| `/bootstrap` | Once, at the start of a new engagement. Scaffolds the wiki. |
-| `/ingest` | Whenever you have new material. Shows available clusters, lets you pick what to process. |
-| `/query <question>` | Ask anything about the engagement, domain, or findings. Produces a filed answer page. |
-| `/lint` | Health-check: orphan pages, contradictions, stale claims, missing extractions. Scope with `/lint uc-01` or `/lint knowledge`. |
-| `/status` | Chat-only orientation: readiness, top blockers, recent activity. |
-| `/snapshot` | Capture a point-in-time state record. |
-| `/brief` | Compile all `client-ready` pages into a shareable markdown (or `/brief marp` for a slide deck). |
-| `/generate-image <ID>` | Render an image opportunity using OpenAI or Gemini APIs. |
-
----
-
-## A typical workflow
-
-**Day 0 — setup**
-
-```
-/bootstrap
-```
-
-Answer the prompts. The agent scaffolds everything and reports what was created vs left as placeholders.
-
-**Day 1 — first interview**
-
-Run the session. Capture notes in `raw/sessions/<session-slug>/` using the session-notes template. Fill in `_manifest.md`.
-
-```
-/ingest
-```
-
-Pick your cluster. The agent reads your notes, creates the source entry, extracts entities and concepts, updates the discovery summary, flips checklist items, promotes recurring evidence into insights, and refreshes the readiness roll-up.
-
-**Day 3 — someone asks a question**
-
-```
-/query How does the current approval workflow actually work, and where does it break down?
-```
-
-The agent reads the relevant scope pages, cites every claim, writes a filed answer under `wiki/<scope>/queries/`, and asks whether any of it should be promoted into the knowledge layer.
-
-**Day 7 — periodic health check**
-
-```
-/lint
-```
-
-Auto-fixes what it can (unlinked entities, stale indexes, missing frontmatter). Flags items that need human review.
-
-**Day 14 — mid-engagement checkpoint**
-
-```
-/snapshot
-/brief
-```
-
-Capture the current state for your records. Compile everything marked `client-ready` into a single shareable markdown for the next stakeholder review.
-
----
-
-## What "good" looks like
-
-A well-run wiki accumulates these properties over the course of an engagement:
-
-- **Every claim is cited.** No free-floating assertions.
-- **Assumptions are classified.** No uncategorised `[ASSUMPTION]` rows.
-- **Opportunities have solutions. Solutions have experiments.** No dead branches in the opportunity tree.
-- **Evidence feeds insights feed concepts.** Nothing orphaned at any tier.
-- **Contradictions are flagged and superseded.** Old values preserved for audit.
-- **`discovery-readiness.md` matches reality.** Checklist % stays in sync with evidence.
-
-`/lint` checks all of these automatically and reports gaps.
-
----
-
-> Note: the exact folder/file names below are what Full and Lite scaffold. Gist lets the agent pick — expect the same conceptual layers (raw capture, discovery tracking, domain knowledge, workspace) but possibly different names.
-
-## File layout after bootstrap
-
-```
-<engagement-root>/
-├── CLAUDE.md                      # ongoing operating config (created by /bootstrap)
-├── README.md                      # engagement summary (created by /bootstrap)
-├── AGENT-PRODUCT-DISCOVERY*.md    # the bootstrap file you chose (removable post-bootstrap)
-│
-├── wiki/
-│   ├── index.md                   # master navigation — always read first
-│   ├── log.md                     # append-only operations log
-│   ├── 01_use-cases/              # one folder per use case
-│   ├── 02_core-topics/            # cross-cutting topics
-│   ├── 03_shared/                 # executive summary, readiness, registers, snapshots
-│   ├── 04_sources/                # sequential source log (S-001, S-002, ...)
-│   ├── 05_queries/                # global queries
-│   ├── 06_knowledge/              # ontology, entities, concepts, relationships
-│   └── 07_personas/               # persona clusters
-│
-├── raw/
-│   ├── _inbox-index.md            # auto-maintained cluster index
-│   ├── inbox/<cluster>/           # drop zone for document packs, exports, mixed material
-│   ├── sessions/<session>/        # live session captures
-│   ├── background/<cluster>/      # prior-context materials
-│   └── assets/                    # photos, handouts, exports
-│
-└── workspace/
-    ├── image-opportunities.md     # registry of image generation opportunities
-    ├── assets/images/             # generated images
-    └── brief-YYYY-MM-DD.md        # compiled client-ready briefs
-```
-
----
-
-## Prior art
-
-The structure draws from established product-discovery practice — no single framework is required reading, but contributors familiar with the literature will recognise the shape.
-
-- **Opportunity-solution tree** — Teresa Torres, *Continuous Discovery Habits*
-- **Four product-risk types** — Marty Cagan / SVPG, *Inspired*
-- **Problem statement + HMW** — Design Thinking (IDEO / Stanford d.school)
-- **Jobs-to-be-done** — Christensen / Klement
-- **Evidence → Insight synthesis** — classic UX research practice
+See [README-DISCOVERY.md](./README-DISCOVERY.md) or [README-STRATEGY.md](./README-STRATEGY.md) for pattern-specific setup and typical workflows.
 
 ---
 
 ## Lifecycle and evolution
 
-- All three bootstrap files (Full, Lite, Gist) are **bootstrap-only** tools. Once `/bootstrap` has run, the active `CLAUDE.md` inside the engagement is the operating config.
-- Improvements to the pattern should be made **here first**, in the bootstrap file you use, and then reflected in future engagements. Don't edit the pattern file from inside a running engagement.
+- Bootstrap files are **bootstrap-only** tools. Once `/bootstrap` has run, the active `CLAUDE.md` inside the engagement is the operating config.
+- Improvements to the pattern should be made **here first**, in the relevant bootstrap file, and then reflected in future engagements. Don't edit the pattern file from inside a running engagement.
 - Individual engagements can override or extend any behaviour in their own `CLAUDE.md` without touching the bootstrap.
-- If you frequently find yourself re-adding the same extension on top of Lite or Gist, promote it into your own fork so the next engagement benefits. If a Gist run consistently produces a better shape than Full, consider retiring the Full version or regenerating it from the Gist output.
+- Prescriptive learnings (new fields, new lint checks, new cluster types) belong in Full and Lite. Conceptual learnings (a new invariant, a better way to frame a layer) belong in Gist — and often propagate down into Full and Lite afterwards.
+- Keep changes in the spirit of each file: terse and load-bearing in all three, prescriptive in Full, compact in Lite, principles-only in Gist.
 
 ---
 
@@ -296,10 +98,10 @@ If you run an engagement and discover:
 - A command phase that needed a manual workaround
 - A new cluster type, entity type, or visibility level worth promoting
 
-…update the appropriate variant in this repo so the next engagement benefits. Prescriptive learnings (new fields, new lint checks, new cluster types) belong in Full and Lite. Conceptual learnings (a new invariant, a better way to frame a layer) belong in Gist — and often propagate down into Full and Lite afterwards. Keep changes in the spirit of each file: terse and load-bearing in all three, prescriptive in Full, compact in Lite, principles-only in Gist.
+…update the appropriate variant in this repo so the next engagement benefits.
 
 ---
 
 ## License and usage
 
-This is a prompt/pattern file, not software. Drop it into your own engagements, adapt it, fork it. The only hard requirement is that it's used with a capable coding agent (Claude Code is the reference target).
+These are prompt/pattern files, not software. Drop them into your own engagements, adapt them, fork them. The only hard requirement is that they're used with a capable coding agent — Claude Code is the reference target.
